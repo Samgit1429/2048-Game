@@ -213,7 +213,6 @@ def update_tiles(window, tiles, sorted_tiles):
 
     draw(window, tiles)
 
-
 def generate_tiles():
     tiles = {}
     for _ in range(2):
