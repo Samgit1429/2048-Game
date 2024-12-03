@@ -2,7 +2,7 @@ import random
 
 from tile import Tile
 from grid import draw
-from constants import ROWS, COLS, MOVE_VEL, RECT_WIDTH, RECT_HEIGHT, FPS, SCORE
+from constants import ROWS, COLS, MOVE_VEL, RECT_WIDTH, RECT_HEIGHT, FPS, SCORE, MERGE_SOUND  # Import only MERGE_SOUND
 
 
 def get_random_pos(tiles):
@@ -90,6 +90,7 @@ def move_tiles(window, tiles, clock, direction):
             next_tile = get_next_tile(tile)
             if not next_tile:  # If no tile, move freely
                 tile.move(delta)
+                MERGE_SOUND.play()  # Play merge sound for move
             elif (
                 tile.value == next_tile.value
                 and tile not in blocks
@@ -100,11 +101,13 @@ def move_tiles(window, tiles, clock, direction):
                 else:
                     global SCORE  # Access the global SCORE variable
                     SCORE += next_tile.value  # Update score BEFORE merging
-                    next_tile.value *= 2       # Merge the tiles
+                    next_tile.value *= 2  # Merge the tiles
                     sorted_tiles.pop(i)
                     blocks.add(next_tile)
+                MERGE_SOUND.play()  # Play merge sound for merge
             elif move_check(tile, next_tile):  # If can move closer
                 tile.move(delta)
+                MERGE_SOUND.play()  # Play merge sound for move
             else:
                 continue
 
@@ -116,6 +119,7 @@ def move_tiles(window, tiles, clock, direction):
 
     # Check if a new tile can be added
     return end_move(tiles)
+
 
 def is_game_over(tiles):
     if len(tiles) < ROWS * COLS:
@@ -132,6 +136,7 @@ def is_game_over(tiles):
                 return False  # Game not over if a merge is possible
 
     return True  # Game over if no merges are possible
+
 
 def end_move(tiles):
     from game_logic import get_random_pos  # Avoid circular import

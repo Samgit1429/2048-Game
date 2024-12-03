@@ -22,3 +22,6 @@ WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("2048")
 
 SCORE = 0  # Initialize the score variable
+
+# Load sound effects # Replace with your move sound file
+MERGE_SOUND = pygame.mixer.Sound("merge.wav")  # Replace with your merge sound file
