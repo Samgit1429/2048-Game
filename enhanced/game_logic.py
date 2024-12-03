@@ -114,9 +114,26 @@ def move_tiles(window, tiles, clock, direction):
     # Check if a new tile can be added
     return end_move(tiles)
 
+def is_game_over(tiles):
+    if len(tiles) < ROWS * COLS:
+        return False  # Game not over if there are empty spaces
+
+    for row in range(ROWS):
+        for col in range(COLS):
+            tile = tiles.get(f"{row}{col}")
+            # Check if the tile can merge with any of its neighbors
+            if (row > 0 and tiles.get(f"{row-1}{col}").value == tile.value) or \
+               (row < ROWS-1 and tiles.get(f"{row+1}{col}").value == tile.value) or \
+               (col > 0 and tiles.get(f"{row}{col-1}").value == tile.value) or \
+               (col < COLS-1 and tiles.get(f"{row}{col+1}").value == tile.value):
+                return False  # Game not over if a merge is possible
+
+    return True  # Game over if no merges are possible
+
 def end_move(tiles):
     from game_logic import get_random_pos  # Avoid circular import
-    if len(tiles) == ROWS * COLS:  # If board is full, check game over
+
+    if is_game_over(tiles):  # Check for game over condition
         return "lost"
 
     row, col = get_random_pos(tiles)

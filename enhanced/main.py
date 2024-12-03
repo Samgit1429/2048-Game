@@ -19,13 +19,21 @@ def main(window):
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    move_tiles(window, tiles, clock, "left")
+                    if move_tiles(window, tiles, clock, "left") == "lost":
+                        print("Game Over!")
+                        run = False
                 if event.key == pygame.K_RIGHT:
-                    move_tiles(window, tiles, clock, "right")
+                    if move_tiles(window, tiles, clock, "right") == "lost":
+                        print("Game Over!")
+                        run = False
                 if event.key == pygame.K_UP:
-                    move_tiles(window, tiles, clock, "up")
+                    if move_tiles(window, tiles, clock, "up") == "lost":
+                        print("Game Over!")
+                        run = False
                 if event.key == pygame.K_DOWN:
-                    move_tiles(window, tiles, clock, "down")
+                    if move_tiles(window, tiles, clock, "down") == "lost":
+                        print("Game Over!")
+                        run = False
 
         draw(window, tiles)
 
