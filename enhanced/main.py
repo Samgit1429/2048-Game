@@ -35,6 +35,11 @@ def main(window):
                     if move_tiles(window, tiles, clock, "down") == "lost":
                         print("Game Over!")
                         run = False
+                # Add restart functionality
+                if event.key == pygame.K_r:  # Check if 'R' key is pressed
+                    global SCORE
+                    SCORE = 0  # Reset the score
+                    tiles = generate_tiles()  # Generate new tiles
 
         draw(window, tiles)
 
