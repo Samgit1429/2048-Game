@@ -1,7 +1,8 @@
 import random
+
 from tile import Tile
 from grid import draw
-from constants import ROWS, COLS, MOVE_VEL, RECT_WIDTH, RECT_HEIGHT, FPS
+from constants import ROWS, COLS, MOVE_VEL, RECT_WIDTH, RECT_HEIGHT, FPS, SCORE
 
 
 def get_random_pos(tiles):
@@ -97,7 +98,9 @@ def move_tiles(window, tiles, clock, direction):
                 if merge_check(tile, next_tile):
                     tile.move(delta)
                 else:
-                    next_tile.value *= 2
+                    global SCORE  # Access the global SCORE variable
+                    SCORE += next_tile.value  # Update score BEFORE merging
+                    next_tile.value *= 2       # Merge the tiles
                     sorted_tiles.pop(i)
                     blocks.add(next_tile)
             elif move_check(tile, next_tile):  # If can move closer
@@ -109,7 +112,7 @@ def move_tiles(window, tiles, clock, direction):
             updated = True
 
         update_tiles(tiles, sorted_tiles)  # Update tile positions on the board
-        draw(window, tiles)  # Re-draw board after every move
+        draw(window, tiles)  # Re-draw board after every tile movement
 
     # Check if a new tile can be added
     return end_move(tiles)

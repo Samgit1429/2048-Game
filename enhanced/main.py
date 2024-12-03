@@ -1,5 +1,6 @@
 import pygame
-from constants import WINDOW, FPS
+
+from constants import WINDOW, FPS, SCORE
 from game_logic import generate_tiles, move_tiles
 from grid import draw
 

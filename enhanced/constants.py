@@ -20,3 +20,5 @@ MOVE_VEL = 40
 
 WINDOW = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("2048")
+
+SCORE = 0  # Initialize the score variable

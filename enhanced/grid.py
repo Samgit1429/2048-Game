@@ -1,4 +1,5 @@
 import pygame
+
 from constants import (
     WIDTH,
     HEIGHT,
@@ -9,6 +10,9 @@ from constants import (
     OUTLINE_COLOR,
     OUTLINE_THICKNESS,
     BACKGROUND_COLOR,
+    FONT,
+    FONT_COLOR,
+    SCORE,
 )
 
 
@@ -25,11 +29,15 @@ def draw_grid(window):
 
 
 def draw(window, tiles):
-    window.fill(BACKGROUND_COLOR)
+    window.fill(BACKGROUND_COLOR)  # Clear the window before drawing
 
     for tile in tiles.values():
         tile.draw(window)
 
     draw_grid(window)
 
-    pygame.display.update()
+    # Display the score
+    score_text = FONT.render(f"Score: {SCORE}", 1, FONT_COLOR)
+    window.blit(score_text, (10, 10))  # Adjust position as needed
+
+    pygame.display.flip()  # Update the entire display
